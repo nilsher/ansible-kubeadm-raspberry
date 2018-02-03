@@ -1,5 +1,5 @@
 flannel_subnet: 10.244.0.0/16
-master_ip: "{{ hostvars['controller1']['ansible_eth0']['ipv4']['address'] }}"
+master_ip: "192.168.1.200"
 
 kubeadm_token: eetaf2.c615d19t42y5r5tc
 

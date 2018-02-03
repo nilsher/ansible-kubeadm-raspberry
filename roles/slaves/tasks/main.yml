@@ -1,0 +1,10 @@
+---
+- name: Install kubeadm
+  apt: package={{ item }}  update_cache=yes
+  with_items:
+    - kubeadm
+  register: kubeadmnew
+
+- name: kubeadm join with pre generated token
+  command: kubeadm join --discovery-token-unsafe-skip-ca-verification --token {{ kubeadm_token }} {{ master_ip }}:6443
+  when: kubeadmnew | changed

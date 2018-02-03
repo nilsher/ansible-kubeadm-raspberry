@@ -1,0 +1,21 @@
+---
+
+- file:
+    path: /usr/local/kubernetes/network
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- copy:
+    src: files/weave-kube-1.6.yml
+    dest: /usr/local/kubernetes/network/weave-kube-1.6.yml
+    owner: root
+    group: root
+    mode: 0744
+  register: weavenetwork
+
+- name: Apply weave
+  shell: kubectl --kubeconfig /etc/kubernetes/admin.conf apply -f /usr/local/kubernetes/network/weave-kube-1.6.yml
+  become: yes
+  when: weavenetwork | changed

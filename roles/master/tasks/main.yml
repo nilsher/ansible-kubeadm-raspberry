@@ -5,3 +5,19 @@
   with_items:
     - kubeadm
 
+- template:
+    src: templates/kubeadm_conf.yml.tmpl
+    dest: /usr/local/kubernetes/kubeadm_conf.yml 
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Check if admin.conf exists then cluster is already created
+  stat:
+    path: /etc/kubernetes/admin.conf
+  register: stat_result
+
+- name: kubeadm init
+  command: kubeadm init --config /usr/local/kubernetes/kubeadm_conf.yml
+  become: yes
+  when: stat_result.stat.exists == False

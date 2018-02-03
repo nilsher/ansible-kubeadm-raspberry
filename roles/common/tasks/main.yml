@@ -56,15 +56,18 @@
     mode: 0744
   when: stat_result.stat.exists == False
 
+- shell: head -n1 /boot/cmdline.txt
+  register: cat_contents
+  when: stat_result.stat.exists == False
+
 # if you encounter problems, try changing cgroup_memory=1 to cgroup_enable=memory.
-- copy:
-    src: files/cmdline.txt
+- template:
+    src: templates/cmdline.txt.tmpl
     dest: /boot/cmdline.txt
     owner: root
     group: root
     mode: 0755
   when: stat_result.stat.exists == False
-
 
 #Add kubernetes repo
 

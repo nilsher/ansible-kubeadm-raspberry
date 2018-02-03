@@ -5,16 +5,27 @@
   remote_user: pi
   become: yes
   become_method: sudo
-  tags: master
+  tags:
+    - master
   roles:
     - master
 
-      #- name: Install nodes
-      #  remote_user: ubuntu
-      #  hosts: worker
-      #  become: yes
-      #  become_method: sudo
-      #  roles:
-      #    - docker
-      #    - kubeadm
-      #    - worker
+- name: Install nodes
+  hosts: nodes
+  remote_user: pi
+  become: yes
+  become_method: sudo
+  tags: 
+    - slaves
+  roles:
+    - slaves
+
+- name: Install weave network
+  hosts: controller
+  remote_user: pi
+  become: yes
+  become_method: sudo
+  tags: 
+    - network
+  roles:
+    - network

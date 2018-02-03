@@ -1,0 +1,11 @@
+---
+#- name: Install kubeadm
+#  apt: package={{ item }}  update_cache=yes
+#  with_items:
+#    - kubeadm
+
+- debug:
+    msg: "System {{ master_ip }}"
+
+#- name: kubeadm join with pre generated token
+#  command: kubeadm join --token {{ kubeadm_token }} {{ master_ip }}:6443
