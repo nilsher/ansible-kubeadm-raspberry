@@ -1,0 +1,24 @@
+---
+
+- file:
+    path: /usr/local/kubernetes/dashboard
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- copy:
+    src: files/kubernetes-dashboard-arm.yaml
+    dest: /usr/local/kubernetes/dashboard/kubernetes-dashboard-arm.yaml
+    owner: root
+    group: root
+    mode: 0744
+  register: dashboard
+
+- name: copy config file to HOME/.kube dir
+  command: "{{ item }}"
+  with_items:
+    - mkdir -p ~{{ansible_remote_user }}/.kube
+    - cp /etc/kubernetes/admin.conf ~{{ansible_remote_user }}/.kube/config
+    - chown -R {{ ansible_remote_user }}:{{ ansible_remote_user }} ~{{ansible_remote_user }}/.kube
+    - chmod 0400 ~{{ansible_remote_user }}/.kube/config

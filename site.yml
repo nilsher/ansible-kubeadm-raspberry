@@ -29,3 +29,17 @@
     - network
   roles:
     - network
+  tags: 
+    - config
+  roles:
+    - config
+
+- name: Install config
+  hosts: controller
+  remote_user: pi
+  become: yes
+  become_method: sudo
+  tags: 
+    - config
+  roles:
+    - config
