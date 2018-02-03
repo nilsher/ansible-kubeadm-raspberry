@@ -1,0 +1,7 @@
+---
+
+- name: install kubeadm
+  apt: package={{ item }}  update_cache=yes
+  with_items:
+    - kubeadm
+

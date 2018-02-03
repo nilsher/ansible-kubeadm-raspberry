@@ -1,0 +1,20 @@
+---
+# This playbook install kubeadm
+- name: Install Kubernetes master
+  hosts: controller
+  remote_user: pi
+  become: yes
+  become_method: sudo
+  tags: master
+  roles:
+    - master
+
+      #- name: Install nodes
+      #  remote_user: ubuntu
+      #  hosts: worker
+      #  become: yes
+      #  become_method: sudo
+      #  roles:
+      #    - docker
+      #    - kubeadm
+      #    - worker

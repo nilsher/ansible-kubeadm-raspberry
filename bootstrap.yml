@@ -1,0 +1,11 @@
+---
+# This playbook bootstraps and disable swap on raspberry pi
+- name: Bootstrap Tasks
+  hosts: all
+  remote_user: pi
+  become: yes
+  become_method: sudo
+  gather_facts: False
+  roles:
+    - common
+
